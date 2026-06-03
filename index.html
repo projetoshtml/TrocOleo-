@@ -13,7 +13,7 @@
   <nav class="navbar" id="navbar">
     <div class="nav-container">
       <a href="#" class="nav-logo" data-section="hero">
-        <img src="/logo.png" alt="Trocóleo Logo"
+        <img src="assets/logo.png" alt="Trocóleo Logo"
              onerror="this.style.display='none'; this.nextElementSibling.style.display='block'"/>
         <span style="display:none;">TROCÓLEO</span>
       </a>
@@ -21,6 +21,8 @@
         <li><a href="#" class="nav-link active" data-section="hero">Início</a></li>
         <li><a href="#" class="nav-link" data-section="sobre">Sobre</a></li>
         <li><a href="#" class="nav-link" data-section="servicos">Serviços</a></li>
+        <li><a href="#" class="nav-link" data-section="galeria">Galeria</a></li>
+        <li><a href="#" class="nav-link" data-section="depoimentos">Depoimentos</a></li>
         <li><a href="#" class="nav-link" data-section="videos">Vídeos</a></li>
         <li><a href="#" class="nav-link" data-section="contato">Contato</a></li>
       </ul>
@@ -31,25 +33,29 @@
   </nav>
 
   <!-- ===================== HERO ===================== -->
-  <section class="section page active" id="hero">
-    <div class="hero-bg">
-      <img src="assets/logo.png" alt="Trocóleo fundo" class="hero-bg-img"
-           onerror="this.style.display='none'"/>
-      <div class="hero-bg-overlay"></div>
-    </div>
-    <div class="hero-content">
-      <h1 class="hero-title">TROCÓLEO <span>SERVIÇOS AUTOMOTIVO</span></h1>
-      <p class="hero-subtitle">Diagnóstico, Manutenção Preventiva e Estética Automotiva</p>
-      <p class="hero-desc">
-        Atendemos em <strong>DOMICÍLIO</strong> e na nossa <strong>BASE</strong> —
-        para seu maior conforto.
-      </p>
-      <a href="#" class="btn-primary" data-section="contato">
-        <i class="fas fa-calendar-check"></i> Agendar Diagnóstico
-      </a>
-    </div>
-  </section>
-
+<!-- ===================== HERO ===================== -->
+<section class="section page active" id="hero">
+  <div class="hero-bg">
+    <img
+      src="assets/logo.png"
+      alt="Trocóleo fundo"
+      class="hero-bg-img"
+      onerror="this.style.display='none'"
+    />
+    <div class="hero-bg-overlay"></div>
+  </div>
+  <div class="hero-content">
+    <h1 class="hero-title">TROCÓLEO <span>SERVIÇOS AUTOMOTIVO</span></h1>
+    <p class="hero-subtitle">Diagnóstico, Manutenção Preventiva e Estética Automotiva</p>
+    <p class="hero-desc">
+      Atendemos em <strong>DOMICÍLIO</strong> e na nossa
+      <strong>BASE</strong> em Tiradentes, Zona Leste — SP.
+    </p>
+    <a href="#" class="btn-primary" data-section="contato">
+      <i class="fas fa-calendar-check"></i> Agendar Diagnóstico
+    </a>
+  </div>
+</section>
   <!-- ===================== SOBRE ===================== -->
   <section class="section page hidden" id="sobre">
     <div class="container section-inner">
@@ -160,6 +166,182 @@
     </div>
   </section>
 
+  <!-- ===================== GALERIA ===================== -->
+  <section class="section page hidden" id="galeria">
+    <div class="container section-inner">
+      <h2 class="section-title">Nossa <span>Galeria</span></h2>
+      <p class="section-subtitle">Veja a qualidade dos nossos serviços em imagens</p>
+
+      <div class="galeria-grid">
+        <div class="galeria-item" onclick="abrirLightbox(this)">
+          <img src="assets/TROCA-DE-OLEO-MOTOR.jpg" alt="Troca de Óleo do Motor"/>
+          <div class="galeria-overlay"><i class="fas fa-search-plus"></i></div>
+          <p class="galeria-label">Troca de Óleo do Motor</p>
+        </div>
+        <div class="galeria-item" onclick="abrirLightbox(this)">
+          <img src="assets/TROCA-DE-OLEO-MOTOR-1.jpg" alt="Verificação de Nível"/>
+          <div class="galeria-overlay"><i class="fas fa-search-plus"></i></div>
+          <p class="galeria-label">Verificação de Nível</p>
+        </div>
+        <div class="galeria-item" onclick="abrirLightbox(this)">
+          <img src="assets/TROCA-DE-OLEO-DO-CAMBIO-MANUAL.jpg" alt="Câmbio Manual"/>
+          <div class="galeria-overlay"><i class="fas fa-search-plus"></i></div>
+          <p class="galeria-label">Troca de Óleo do Câmbio</p>
+        </div>
+        <div class="galeria-item" onclick="abrirLightbox(this)">
+          <img src="assets/TROCA-DOS-FILTROS-DE-AR-CABINE-E-DE-OLEO.jpg" alt="Filtros"/>
+          <div class="galeria-overlay"><i class="fas fa-search-plus"></i></div>
+          <p class="galeria-label">Troca de Filtros</p>
+        </div>
+        <div class="galeria-item" onclick="abrirLightbox(this)">
+          <img src="assets/LIMPEZA-E-TROCA-DO-FLUIDO-DO-SISTEMA-DE-ARREFECIMENTO.jpg" alt="Arrefecimento"/>
+          <div class="galeria-overlay"><i class="fas fa-search-plus"></i></div>
+          <p class="galeria-label">Sistema de Arrefecimento</p>
+        </div>
+        <div class="galeria-item" onclick="abrirLightbox(this)">
+          <img src="assets/TROCA-DO-LIQUIDO-DE-ARREFECIMENTO.jpg" alt="Líquido Arrefecimento"/>
+          <div class="galeria-overlay"><i class="fas fa-search-plus"></i></div>
+          <p class="galeria-label">Troca do Líquido de Arrefecimento</p>
+        </div>
+      </div>
+
+      <!-- Lightbox -->
+      <div id="lightbox" onclick="fecharLightbox()">
+        <button class="lightbox-close" onclick="fecharLightbox()">
+          <i class="fas fa-times"></i>
+        </button>
+        <img id="lightbox-img" src="" alt=""/>
+        <p id="lightbox-caption"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DEPOIMENTOS ===================== -->
+  <section class="section page hidden" id="depoimentos">
+    <div class="container section-inner">
+      <h2 class="section-title">O que nossos <span>Clientes dizem</span></h2>
+      <p class="section-subtitle">Satisfação e confiança em cada atendimento</p>
+
+      <div class="depoimentos-grid">
+        <div class="depoimento-card">
+          <div class="depoimento-stars">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="depoimento-texto">
+            "Serviço excelente! Atendimento em domicílio muito prático, técnico pontual
+            e muito profissional. Recomendo a todos!"
+          </p>
+          <div class="depoimento-autor">
+            <div class="depoimento-avatar"><i class="fas fa-user"></i></div>
+            <div>
+              <strong>Carlos M.</strong>
+              <span>São Paulo – SP</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="depoimento-card">
+          <div class="depoimento-stars">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="depoimento-texto">
+            "Fiz a troca de óleo e filtros no meu carro. Trabalho impecável, com
+            transparência total no serviço. Com certeza voltarei!"
+          </p>
+          <div class="depoimento-autor">
+            <div class="depoimento-avatar"><i class="fas fa-user"></i></div>
+            <div>
+              <strong>Ana R.</strong>
+              <span>Zona Leste – SP</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="depoimento-card">
+          <div class="depoimento-stars">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="depoimento-texto">
+            "Ótimo custo-benefício! Meu motor estava com problemas e após a manutenção
+            preventiva voltou a funcionar perfeitamente. Parabéns à equipe!"
+          </p>
+          <div class="depoimento-autor">
+            <div class="depoimento-avatar"><i class="fas fa-user"></i></div>
+            <div>
+              <strong>Roberto S.</strong>
+              <span>Tiradentes – Zona Leste</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="depoimento-card depoimento-destaque">
+          <div class="depoimento-stars">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="depoimento-texto">
+            "Super indico! Equipe muito atenciosa, explica tudo que está sendo feito
+            e o serviço é de altíssima qualidade."
+          </p>
+          <div class="depoimento-autor">
+            <div class="depoimento-avatar"><i class="fas fa-user"></i></div>
+            <div>
+              <strong>Fernanda T.</strong>
+              <span>Tiradentes – Zona Leste</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="depoimento-card">
+          <div class="depoimento-stars">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="depoimento-texto">
+            "Atendimento via WhatsApp rápido, agendamento fácil e serviço feito na minha
+            garagem. Profissionalismo do início ao fim!"
+          </p>
+          <div class="depoimento-autor">
+            <div class="depoimento-avatar"><i class="fas fa-user"></i></div>
+            <div>
+              <strong>Marcos P.</strong>
+              <span>São Paulo – SP</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="depoimento-card">
+          <div class="depoimento-stars">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            <i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+          </div>
+          <p class="depoimento-texto">
+            "Fiz a restauração dos faróis e ficou como novo! Preço justo e resultado
+            surpreendente. Muito satisfeito com o trabalho!"
+          </p>
+          <div class="depoimento-autor">
+            <div class="depoimento-avatar"><i class="fas fa-user"></i></div>
+            <div>
+              <strong>Paulo H.</strong>
+              <span>Zona Leste – SP</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="depoimentos-cta">
+        <p>Ficou satisfeito com nosso serviço? Deixe sua avaliação!</p>
+        <a href="https://wa.me/5511917334614?text=Olá!%20Gostaria%20de%20deixar%20meu%20depoimento%20sobre%20o%20serviço%20da%20Trocóleo!"
+           target="_blank" class="btn-primary">
+          <i class="fab fa-whatsapp"></i> Enviar Depoimento
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- ===================== VÍDEOS ===================== -->
   <section class="section page hidden" id="videos">
     <div class="container section-inner">
@@ -167,7 +349,6 @@
       <p class="section-subtitle">Veja na prática a qualidade dos nossos serviços</p>
       <div class="videos-grid">
         <div class="video-wrapper">
-          <!-- Troque VIDEO_ID_1 pelo ID do seu vídeo no YouTube -->
           <iframe
             src="https://www.youtube.com/embed/VIDEO_ID_1"
             title="Vídeo 1 – Trocóleo"
@@ -178,7 +359,6 @@
           <p class="video-label">Manutenção Preventiva em Ação</p>
         </div>
         <div class="video-wrapper">
-          <!-- Troque VIDEO_ID_2 pelo ID do segundo vídeo -->
           <iframe
             src="https://www.youtube.com/embed/VIDEO_ID_2"
             title="Vídeo 2 – Trocóleo"
@@ -200,6 +380,32 @@
       <div class="contato-grid">
 
         <div class="contato-info">
+
+          <!-- Localização da Base -->
+          <div class="contato-local-destaque">
+            <div class="local-header">
+              <i class="fas fa-map-marker-alt"></i>
+              <div>
+                <strong>NOSSA BASE</strong>
+                <span>Tiradentes — Zona Leste, São Paulo/SP</span>
+              </div>
+            </div>
+            <div class="local-mapa">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.5!2d-46.4750!3d-23.5450!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce5efb5b5b5b5b%3A0x0!2sTiradentes%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2008460-000!5e0!3m2!1spt-BR!2sbr!4v1700000000000"
+                width="100%" height="200"
+                style="border:0; border-radius:8px; display:block;"
+                allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Localização Trocóleo — Tiradentes, Zona Leste SP">
+              </iframe>
+            </div>
+            <p class="local-obs">
+              <i class="fas fa-car"></i>
+              Também atendemos em <strong>DOMICÍLIO</strong> em toda a região!
+            </p>
+          </div>
+
           <div class="contato-item">
             <i class="fab fa-whatsapp"></i>
             <div>
@@ -216,12 +422,10 @@
               </a>
             </div>
           </div>
-          <!-- INSTAGRAM no lugar do Site -->
           <div class="contato-item">
             <i class="fab fa-instagram"></i>
             <div>
               <strong>INSTAGRAM</strong>
-              <!-- Troque pelo link real do Instagram -->
               <a href="https://www.instagram.com/trocoleoservicosautomotivo" target="_blank">
                 @trocoleoservicosautomotivo
               </a>
@@ -230,10 +434,6 @@
         </div>
 
         <div class="contato-form-wrapper">
-          <!--
-            Troque YOUR_FORM_ID pelo seu ID do Formspree.
-            Cadastre em https://formspree.io
-          -->
           <form
             action="https://formspree.io/f/YOUR_FORM_ID"
             method="POST"
@@ -255,10 +455,6 @@
             <button type="submit" class="btn-primary btn-form">
               <i class="fas fa-paper-plane"></i> Enviar Mensagem
             </button>
-            <div id="form-success" class="form-success" style="display:none;">
-              <i class="fas fa-check-circle"></i>
-              Mensagem enviada com sucesso! Entraremos em contato em breve.
-            </div>
           </form>
         </div>
 
@@ -274,6 +470,10 @@
              onerror="this.style.display='none'"/>
         <h3>TROCÓLEO SERVIÇOS AUTOMOTIVO</h3>
         <p>Potencializando o desempenho e a vida útil dos seus motores com segurança e confiança.</p>
+        <p class="footer-local">
+          <i class="fas fa-map-marker-alt"></i>
+          Tiradentes — Zona Leste, São Paulo/SP
+        </p>
       </div>
       <div class="footer-links">
         <h4>Links Rápidos</h4>
@@ -281,6 +481,8 @@
           <li><a href="#" data-section="hero">Início</a></li>
           <li><a href="#" data-section="sobre">Sobre Nós</a></li>
           <li><a href="#" data-section="servicos">Serviços</a></li>
+          <li><a href="#" data-section="galeria">Galeria</a></li>
+          <li><a href="#" data-section="depoimentos">Depoimentos</a></li>
           <li><a href="#" data-section="videos">Vídeos</a></li>
           <li><a href="#" data-section="contato">Contato</a></li>
         </ul>
@@ -307,6 +509,7 @@
         </div>
         <p class="footer-contact-info"><i class="fab fa-whatsapp"></i> (11) 9 1733 4614</p>
         <p class="footer-contact-info"><i class="fas fa-envelope"></i> trocoleoservicosautomotivo@gmail.com</p>
+        <p class="footer-contact-info"><i class="fas fa-map-marker-alt"></i> Tiradentes – Zona Leste/SP</p>
       </div>
     </div>
     <div class="footer-bottom">

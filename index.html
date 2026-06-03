@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Trocóleo Serviços Automotivo</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo" data-section="hero">
+        <img src="/logo.png" alt="Trocóleo Logo"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block'"/>
+        <span style="display:none;">TROCÓLEO</span>
+      </a>
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="#" class="nav-link active" data-section="hero">Início</a></li>
+        <li><a href="#" class="nav-link" data-section="sobre">Sobre</a></li>
+        <li><a href="#" class="nav-link" data-section="servicos">Serviços</a></li>
+        <li><a href="#" class="nav-link" data-section="videos">Vídeos</a></li>
+        <li><a href="#" class="nav-link" data-section="contato">Contato</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="section page active" id="hero">
+    <div class="hero-bg">
+      <img src="assets/logo.png" alt="Trocóleo fundo" class="hero-bg-img"
+           onerror="this.style.display='none'"/>
+      <div class="hero-bg-overlay"></div>
+    </div>
+    <div class="hero-content">
+      <h1 class="hero-title">TROCÓLEO <span>SERVIÇOS AUTOMOTIVO</span></h1>
+      <p class="hero-subtitle">Diagnóstico, Manutenção Preventiva e Estética Automotiva</p>
+      <p class="hero-desc">
+        Atendemos em <strong>DOMICÍLIO</strong> e na nossa <strong>BASE</strong> —
+        para seu maior conforto.
+      </p>
+      <a href="#" class="btn-primary" data-section="contato">
+        <i class="fas fa-calendar-check"></i> Agendar Diagnóstico
+      </a>
+    </div>
+  </section>
+
+  <!-- ===================== SOBRE ===================== -->
+  <section class="section page hidden" id="sobre">
+    <div class="container section-inner">
+      <h2 class="section-title">Nossa <span>Missão, Visão e Valores</span></h2>
+      <div class="mvv-grid">
+        <div class="mvv-card">
+          <div class="mvv-icon"><i class="fas fa-bullseye"></i></div>
+          <h3>MISSÃO</h3>
+          <p>Potencializar o Desempenho e a Vida Útil dos Motores Automotivo a combustão e
+          Garantir Segurança, Tranquilidade e Economia aos Proprietários.</p>
+        </div>
+        <div class="mvv-card">
+          <div class="mvv-icon"><i class="fas fa-eye"></i></div>
+          <h3>VISÃO</h3>
+          <p>Ser uma Empresa líder no país e um grande centro de Excelência Automotivo,
+          maximizando ações com efetividade e segurança.</p>
+        </div>
+        <div class="mvv-card">
+          <div class="mvv-icon"><i class="fas fa-star"></i></div>
+          <h3>VALORES</h3>
+          <p>Ética; Responsabilidade Social e Ambiental; Pluralismo; Pioneirismo e
+          Compromisso Institucional.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SERVIÇOS ===================== -->
+  <section class="section page hidden" id="servicos">
+    <div class="container section-inner">
+      <h2 class="section-title">Serviços <span>Especializados</span></h2>
+      <p class="section-subtitle">Diagnóstico e Manutenção Preventiva</p>
+
+      <div class="servicos-categoria">
+        <h3 class="categoria-titulo">
+          <i class="fas fa-oil-can"></i> Sistema de Lubrificação
+        </h3>
+        <div class="servicos-grid">
+          <div class="servico-card">
+            <img src="assets/TROCA-DE-OLEO-MOTOR.jpg" alt="Troca de Óleo do Motor"/>
+            <div class="servico-info">
+              <h4>Troca de Óleo do Motor</h4>
+              <p>Manutenção essencial para garantir desempenho e longevidade do motor.</p>
+            </div>
+          </div>
+          <div class="servico-card">
+            <img src="assets/TROCA-DE-OLEO-DO-CAMBIO-MANUAL.jpg" alt="Câmbio Manual"/>
+            <div class="servico-info">
+              <h4>Troca de Óleo do Câmbio Manual</h4>
+              <p>Proteção completa para o sistema de transmissão do seu veículo.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="servicos-categoria">
+        <h3 class="categoria-titulo">
+          <i class="fas fa-filter"></i> Sistema de Filtros
+        </h3>
+        <div class="servicos-grid">
+          <div class="servico-card">
+            <img src="assets/TROCA-DOS-FILTROS-DE-AR-CABINE-E-DE-OLEO.jpg" alt="Filtros"/>
+            <div class="servico-info">
+              <h4>Troca do Filtro de Óleo, Ar e Cabine</h4>
+              <p>Filtros limpos garantem melhor desempenho do motor e qualidade do ar interno.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="servicos-categoria">
+        <h3 class="categoria-titulo">
+          <i class="fas fa-thermometer-half"></i> Sistema de Arrefecimento
+        </h3>
+        <div class="servicos-grid">
+          <div class="servico-card">
+            <img src="assets/LIMPEZA-E-TROCA-DO-FLUIDO-DO-SISTEMA-DE-ARREFECIMENTO.jpg" alt="Arrefecimento"/>
+            <div class="servico-info">
+              <h4>Limpeza e Troca de Fluído</h4>
+              <p>Mantemos a temperatura ideal do motor, evitando superaquecimentos.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="servicos-categoria">
+        <h3 class="categoria-titulo">
+          <i class="fas fa-car-side"></i> Estética Automotiva
+        </h3>
+        <div class="servicos-grid">
+          <div class="servico-card servico-card-wide">
+            <div class="servico-info servico-estetica">
+              <i class="fas fa-spray-can estetica-icon"></i>
+              <h4>Lavagem Interna e Externa e Restauração de Faróis</h4>
+              <p>Seu veículo com aparência impecável — lavagem completa e faróis como novos.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="aviso-box">
+        <i class="fas fa-exclamation-triangle"></i>
+        <p><strong>FIQUE ATENTO:</strong> Garanta a sua segurança, a segurança da sua família
+        e a segurança do seu automóvel, contratando a equipe da
+        <strong>TROCÓLEO SERVIÇOS AUTOMOTIVO</strong>, para fazer a manutenção preventiva
+        do seu Automóvel.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== VÍDEOS ===================== -->
+  <section class="section page hidden" id="videos">
+    <div class="container section-inner">
+      <h2 class="section-title">Nossos <span>Trabalhos</span></h2>
+      <p class="section-subtitle">Veja na prática a qualidade dos nossos serviços</p>
+      <div class="videos-grid">
+        <div class="video-wrapper">
+          <!-- Troque VIDEO_ID_1 pelo ID do seu vídeo no YouTube -->
+          <iframe
+            src="https://www.youtube.com/embed/VIDEO_ID_1"
+            title="Vídeo 1 – Trocóleo"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+          <p class="video-label">Manutenção Preventiva em Ação</p>
+        </div>
+        <div class="video-wrapper">
+          <!-- Troque VIDEO_ID_2 pelo ID do segundo vídeo -->
+          <iframe
+            src="https://www.youtube.com/embed/VIDEO_ID_2"
+            title="Vídeo 2 – Trocóleo"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+          <p class="video-label">Diagnóstico e Cuidados com o Veículo</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTATO ===================== -->
+  <section class="section page hidden" id="contato">
+    <div class="container section-inner">
+      <h2 class="section-title">Entre em <span>Contato</span></h2>
+      <p class="section-subtitle">Agende o diagnóstico e manutenção preventiva do seu veículo</p>
+      <div class="contato-grid">
+
+        <div class="contato-info">
+          <div class="contato-item">
+            <i class="fab fa-whatsapp"></i>
+            <div>
+              <strong>WHATSAPP</strong>
+              <a href="https://wa.me/5511917334614" target="_blank">(11) 9 1733 4614</a>
+            </div>
+          </div>
+          <div class="contato-item">
+            <i class="fas fa-envelope"></i>
+            <div>
+              <strong>E-MAIL</strong>
+              <a href="mailto:trocoleoservicosautomotivo@gmail.com">
+                trocoleoservicosautomotivo@gmail.com
+              </a>
+            </div>
+          </div>
+          <!-- INSTAGRAM no lugar do Site -->
+          <div class="contato-item">
+            <i class="fab fa-instagram"></i>
+            <div>
+              <strong>INSTAGRAM</strong>
+              <!-- Troque pelo link real do Instagram -->
+              <a href="https://www.instagram.com/trocoleoservicosautomotivo" target="_blank">
+                @trocoleoservicosautomotivo
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="contato-form-wrapper">
+          <!--
+            Troque YOUR_FORM_ID pelo seu ID do Formspree.
+            Cadastre em https://formspree.io
+          -->
+          <form
+            action="https://formspree.io/f/YOUR_FORM_ID"
+            method="POST"
+            id="contactForm"
+            class="contato-form">
+            <div class="form-group">
+              <input type="text" name="nome" placeholder="Seu nome" required />
+            </div>
+            <div class="form-group">
+              <input type="email" name="email" placeholder="Seu e-mail" required />
+            </div>
+            <div class="form-group">
+              <input type="tel" name="telefone" placeholder="Seu telefone / WhatsApp" />
+            </div>
+            <div class="form-group">
+              <textarea name="mensagem" rows="5"
+                placeholder="Descreva o serviço desejado ou sua dúvida..." required></textarea>
+            </div>
+            <button type="submit" class="btn-primary btn-form">
+              <i class="fas fa-paper-plane"></i> Enviar Mensagem
+            </button>
+            <div id="form-success" class="form-success" style="display:none;">
+              <i class="fas fa-check-circle"></i>
+              Mensagem enviada com sucesso! Entraremos em contato em breve.
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <img src="assets/logo.png" alt="Trocóleo" class="footer-logo"
+             onerror="this.style.display='none'"/>
+        <h3>TROCÓLEO SERVIÇOS AUTOMOTIVO</h3>
+        <p>Potencializando o desempenho e a vida útil dos seus motores com segurança e confiança.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Links Rápidos</h4>
+        <ul>
+          <li><a href="#" data-section="hero">Início</a></li>
+          <li><a href="#" data-section="sobre">Sobre Nós</a></li>
+          <li><a href="#" data-section="servicos">Serviços</a></li>
+          <li><a href="#" data-section="videos">Vídeos</a></li>
+          <li><a href="#" data-section="contato">Contato</a></li>
+        </ul>
+      </div>
+      <div class="footer-social">
+        <h4>Redes Sociais</h4>
+        <div class="social-icons">
+          <a href="https://wa.me/5511917334614" target="_blank"
+             class="social-icon whatsapp" title="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+          <a href="https://www.instagram.com/trocoleoservicosautomotivo"
+             target="_blank" class="social-icon instagram" title="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="mailto:trocoleoservicosautomotivo@gmail.com"
+             class="social-icon email" title="E-mail">
+            <i class="fas fa-envelope"></i>
+          </a>
+          <a href="https://www.youtube.com/@trocoleoservicosautomotivo"
+             target="_blank" class="social-icon youtube" title="YouTube">
+            <i class="fab fa-youtube"></i>
+          </a>
+        </div>
+        <p class="footer-contact-info"><i class="fab fa-whatsapp"></i> (11) 9 1733 4614</p>
+        <p class="footer-contact-info"><i class="fas fa-envelope"></i> trocoleoservicosautomotivo@gmail.com</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Trocóleo Serviços Automotivo. Todos os direitos reservados.</p>
+      <p>Desenvolvido com <i class="fas fa-heart" style="color:#e74c3c;"></i> para seu veículo.</p>
+    </div>
+  </footer>
+
+  <!-- ===================== WHATSAPP FLUTUANTE ===================== -->
+  <a href="https://wa.me/5511917334614" target="_blank"
+     class="whatsapp-float" title="Fale conosco no WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <script src="script.js"></script>
+</body>
+</html>

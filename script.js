@@ -238,3 +238,60 @@ document.querySelectorAll(
   el.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
   animObserver.observe(el);
 });
+// =============================================
+//  LGPD — COOKIES + POLÍTICA DE PRIVACIDADE
+// =============================================
+
+const cookieBanner    = document.getElementById('cookie-banner');
+const btnAceitar      = document.getElementById('cookieAceitar');
+const btnRejeitar     = document.getElementById('cookieRejeitar');
+const modalPriv       = document.getElementById('modal-privacidade');
+const btnOpenPriv     = document.getElementById('openPrivacidade');
+const btnFecharModal  = document.getElementById('fecharModal');
+const btnFecharModalB = document.getElementById('fecharModalBtn');
+
+// Verifica se já deu consentimento
+function verificarCookie() {
+  const consent = localStorage.getItem('trocoleo_cookie_consent');
+  if (consent === 'aceito' || consent === 'rejeitado') {
+    cookieBanner.classList.add('esconder');
+  }
+}
+
+// Aceitar cookies
+btnAceitar.addEventListener('click', () => {
+  localStorage.setItem('trocoleo_cookie_consent', 'aceito');
+  localStorage.setItem('trocoleo_cookie_date', new Date().toISOString());
+  cookieBanner.classList.add('esconder');
+  // Se quiser ativar Google Analytics apenas após aceitar, chame aqui
+});
+
+// Rejeitar cookies
+btnRejeitar.addEventListener('click', () => {
+  localStorage.setItem('trocoleo_cookie_consent', 'rejeitado');
+  cookieBanner.classList.add('esconder');
+});
+
+// Abrir modal de privacidade
+btnOpenPriv.addEventListener('click', (e) => {
+  e.preventDefault();
+  modalPriv.classList.add('ativo');
+  document.body.style.overflow = 'hidden';
+});
+
+// Fechar modal
+function fecharModalPriv() {
+  modalPriv.classList.remove('ativo');
+  document.body.style.overflow = '';
+}
+btnFecharModal.addEventListener('click', fecharModalPriv);
+btnFecharModalB.addEventListener('click', fecharModalPriv);
+modalPriv.addEventListener('click', (e) => {
+  if (e.target === modalPriv) fecharModalPriv();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') fecharModalPriv();
+});
+
+// Iniciar verificação
+verificarCookie();

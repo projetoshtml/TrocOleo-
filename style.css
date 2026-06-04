@@ -521,3 +521,181 @@ body {
   .whatsapp-float { width: 52px; height: 52px; font-size: 1.6rem; right: 16px; bottom: 16px; }
   .videos-grid { grid-template-columns: 1fr; }
 }
+/* ===================== COOKIE BANNER ===================== */
+.cookie-banner {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 99998;
+  background: #111;
+  border-top: 3px solid var(--yellow);
+  padding: 20px 24px;
+  box-shadow: 0 -4px 32px rgba(0,0,0,0.7);
+  transform: translateY(0);
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  opacity: 1;
+}
+.cookie-banner.esconder {
+  transform: translateY(110%);
+  opacity: 0;
+  pointer-events: none;
+}
+.cookie-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.cookie-icon {
+  font-size: 2.2rem;
+  color: var(--yellow);
+  flex-shrink: 0;
+}
+.cookie-text { flex: 1; min-width: 220px; }
+.cookie-text strong {
+  display: block;
+  color: var(--white);
+  font-size: 1rem;
+  margin-bottom: 6px;
+}
+.cookie-text p {
+  color: #bbb;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  margin: 0;
+}
+.cookie-link {
+  color: var(--yellow);
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: inherit;
+}
+.cookie-link:hover { color: #ffd700; }
+.cookie-btns {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.btn-cookie-aceitar {
+  background: var(--yellow);
+  color: var(--black);
+  border: none;
+  padding: 11px 24px;
+  border-radius: 8px;
+  font-weight: 800;
+  font-size: 0.92rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--transition);
+}
+.btn-cookie-aceitar:hover { background: #ffd700; transform: translateY(-2px); }
+.btn-cookie-recusar {
+  background: transparent;
+  color: #bbb;
+  border: 1px solid #444;
+  padding: 11px 20px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.92rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--transition);
+}
+.btn-cookie-recusar:hover { border-color: var(--red); color: var(--red); }
+
+/* ===================== MODAL PRIVACIDADE ===================== */
+.modal-privacidade {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background: rgba(0,0,0,0.85);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-privacidade.ativo { display: flex; }
+.modal-box {
+  background: #141414;
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--yellow);
+  border-radius: 14px;
+  max-width: 680px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 36px 32px;
+  position: relative;
+  box-shadow: 0 12px 60px rgba(0,0,0,0.8);
+}
+.modal-box::-webkit-scrollbar { width: 5px; }
+.modal-box::-webkit-scrollbar-thumb { background: var(--yellow); border-radius: 3px; }
+.modal-fechar {
+  position: absolute;
+  top: 16px; right: 16px;
+  background: none;
+  border: none;
+  color: #777;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: var(--transition);
+  padding: 4px;
+}
+.modal-fechar:hover { color: var(--yellow); transform: scale(1.2); }
+.modal-box h2 {
+  color: var(--yellow);
+  font-size: 1.4rem;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.modal-data { color: var(--gray); font-size: 0.82rem; margin-bottom: 24px; }
+.modal-body h3 {
+  color: var(--white);
+  font-size: 1rem;
+  margin: 20px 0 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+.modal-body p {
+  color: #bbb;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  margin-bottom: 8px;
+}
+.modal-body ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 8px;
+}
+.modal-body ul li {
+  color: #bbb;
+  font-size: 0.9rem;
+  padding: 4px 0;
+  padding-left: 16px;
+  position: relative;
+}
+.modal-body ul li::before {
+  content: '▸';
+  color: var(--yellow);
+  position: absolute;
+  left: 0;
+}
+.modal-body a { color: var(--yellow); text-decoration: underline; }
+.modal-body a:hover { color: #ffd700; }
+
+@media (max-width: 600px) {
+  .cookie-content { flex-direction: column; align-items: flex-start; }
+  .cookie-btns { width: 100%; }
+  .btn-cookie-aceitar, .btn-cookie-recusar { flex: 1; justify-content: center; }
+  .modal-box { padding: 24px 18px; }
+}

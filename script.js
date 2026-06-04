@@ -1,297 +1,551 @@
 // =============================================
-//  TROCÓLEO SERVIÇOS AUTOMOTIVO — script.js
-//  SPA: navegação 100% via JS, sem reload
+// TROCÓLEO SERVIÇOS AUTOMOTIVO — script.js
+// SPA + acessibilidade + contato + cookies
 // =============================================
 
-const hamburger = document.getElementById('hamburger');
-const navMenu   = document.getElementById('nav-menu');
-const navbar    = document.getElementById('navbar');
-const allPages  = document.querySelectorAll('.page');
+const hamburger = document.getElementById("hamburger");
+const navMenu = document.getElementById("nav-menu");
+const navbar = document.getElementById("navbar");
+const paginas = document.querySelectorAll(".page");
+const linksNavegacao = document.querySelectorAll("[data-section]");
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-// ---- Núcleo SPA ----
-function showSection(id) {
-  allPages.forEach(page => {
-    if (page.id === id) {
-      page.classList.remove('hidden');
-      page.classList.add('active');
-    } else {
-      page.classList.add('hidden');
-      page.classList.remove('active');
-    }
-  });
-  document.querySelectorAll('.nav-link').forEach(link => {
-    link.classList.toggle('active', link.dataset.section === id);
-  });
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-  navMenu.classList.remove('active');
-  hamburger.classList.remove('open');
+// Lightbox
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+const lightboxCaption = document.getElementById("lightbox-caption");
+const lightboxClose = document.getElementById("lightbox-close");
+const itensGaleria = document.querySelectorAll(".galeria-item");
+
+// Formulário
+const form = document.getElementById("contactForm");
+
+// Cookies / Modal
+const cookieBanner = document.getElementById("cookie-banner");
+const btnAceitar = document.getElementById("cookieAceitar");
+const btnRejeitar = document.getElementById("cookieRejeitar");
+const modalPriv = document.getElementById("modal-privacidade");
+const modalBox = modalPriv?.querySelector(".modal-box");
+const btnOpenPriv = document.getElementById("openPrivacidade");
+const btnFecharModal = document.getElementById("fecharModal");
+const btnFecharModalB = document.getElementById("fecharModalBtn");
+
+// Toast
+const toastContainer = document.getElementById("toast-container");
+
+let ultimoElementoFocado = null;
+
+// =============================
+// Utilitários
+// =============================
+function elementoExiste(...elementos) {
+  return elementos.every(Boolean);
 }
 
-// ---- Lightbox Galeria ----
-function abrirLightbox(el) {
-  const img    = el.querySelector('img');
-  const label  = el.querySelector('.galeria-label');
-  const lb     = document.getElementById('lightbox');
-  const lbImg  = document.getElementById('lightbox-img');
-  const lbCapt = document.getElementById('lightbox-caption');
-  lbImg.src            = img.src;
-  lbImg.alt            = img.alt;
-  lbCapt.textContent   = label ? label.textContent : '';
-  lb.classList.add('ativo');
-  document.body.style.overflow = 'hidden';
+function definirScrollTopo() {
+  window.scrollTo({
+    top: 0,
+    behavior: prefersReducedMotion ? "auto" : "smooth"
+  });
+}
+
+function atualizarMenuAtivo(id) {
+  document.querySelectorAll(".nav-link").forEach((link) => {
+    link.classList.toggle("active", link.dataset.section === id);
+  });
+}
+
+function fecharMenuMobile() {
+  if (!elementoExiste(navMenu, hamburger)) return;
+  navMenu.classList.remove("active");
+  hamburger.classList.remove("open");
+  hamburger.setAttribute("aria-expanded", "false");
+}
+
+function abrirMenuMobile() {
+  if (!elementoExiste(navMenu, hamburger)) return;
+  navMenu.classList.add("active");
+  hamburger.classList.add("open");
+  hamburger.setAttribute("aria-expanded", "true");
+}
+
+function toggleMenuMobile() {
+  if (!elementoExiste(navMenu, hamburger)) return;
+  const estaAberto = navMenu.classList.contains("active");
+  if (estaAberto) {
+    fecharMenuMobile();
+  } else {
+    abrirMenuMobile();
+  }
+}
+
+function atualizarHash(id) {
+  if (!id) return;
+  history.replaceState(null, "", `#${id}`);
+}
+
+function obterHashInicial() {
+  const hash = window.location.hash.replace("#", "");
+  const existe = [...paginas].some((pagina) => pagina.id === hash);
+  return existe ? hash : "hero";
+}
+
+// =============================
+// Navegação SPA
+// =============================
+function mostrarSecao(id, atualizarUrl = true) {
+  paginas.forEach((pagina) => {
+    const ativa = pagina.id === id;
+    pagina.classList.toggle("hidden", !ativa);
+    pagina.classList.toggle("active", ativa);
+    pagina.setAttribute("aria-hidden", String(!ativa));
+  });
+
+  atualizarMenuAtivo(id);
+  fecharMenuMobile();
+  definirScrollTopo();
+
+  if (atualizarUrl) {
+    atualizarHash(id);
+  }
+}
+
+function iniciarNavegacao() {
+  const secaoInicial = obterHashInicial();
+  mostrarSecao(secaoInicial, false);
+
+  document.addEventListener("click", (e) => {
+    const alvo = e.target.closest("[data-section]");
+    if (!alvo) return;
+
+    const secao = alvo.dataset.section;
+    if (!secao) return;
+
+    e.preventDefault();
+    mostrarSecao(secao);
+  });
+
+  window.addEventListener("hashchange", () => {
+    const secao = obterHashInicial();
+    mostrarSecao(secao, false);
+  });
+}
+
+// =============================
+// Navbar
+// =============================
+function iniciarNavbar() {
+  if (!navbar) return;
+
+  const atualizarEstadoNavbar = () => {
+    navbar.classList.toggle("scrolled", window.scrollY > 30);
+  };
+
+  atualizarEstadoNavbar();
+  window.addEventListener("scroll", atualizarEstadoNavbar);
+}
+
+// =============================
+// Menu mobile
+// =============================
+function iniciarMenuMobile() {
+  if (!elementoExiste(hamburger, navMenu)) return;
+
+  hamburger.addEventListener("click", toggleMenuMobile);
+
+  document.addEventListener("click", (e) => {
+    const clicouNoMenu = e.target.closest(".nav-menu");
+    const clicouNoBotao = e.target.closest("#hamburger");
+
+    if (!clicouNoMenu && !clicouNoBotao) {
+      fecharMenuMobile();
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 768) {
+      fecharMenuMobile();
+    }
+  });
+}
+
+// =============================
+// Fallback de imagens
+// =============================
+function iniciarFallbackImagens() {
+  const logoPrincipal = document.getElementById("logo-principal");
+  const logoFooter = document.getElementById("footer-logo");
+  const heroBg = document.getElementById("hero-bg-img");
+
+  [logoPrincipal, logoFooter].forEach((img) => {
+    if (!img) return;
+    img.addEventListener("error", () => {
+      img.style.display = "none";
+    });
+  });
+
+  if (heroBg) {
+    heroBg.addEventListener("error", () => {
+      heroBg.style.display = "none";
+    });
+  }
+}
+
+// =============================
+// Lightbox
+// =============================
+function abrirLightbox(item) {
+  if (!elementoExiste(lightbox, lightboxImg, lightboxCaption, lightboxClose)) return;
+
+  const img = item.querySelector("img");
+  const label = item.querySelector(".galeria-label");
+
+  if (!img) return;
+
+  ultimoElementoFocado = document.activeElement;
+
+  lightboxImg.src = img.src;
+  lightboxImg.alt = img.alt || "";
+  lightboxCaption.textContent = label ? label.textContent : "";
+  lightbox.classList.add("ativo");
+  lightbox.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+  lightboxClose.focus();
 }
 
 function fecharLightbox() {
-  document.getElementById('lightbox').classList.remove('ativo');
-  document.body.style.overflow = '';
+  if (!elementoExiste(lightbox, lightboxImg, lightboxCaption)) return;
+
+  lightbox.classList.remove("ativo");
+  lightbox.setAttribute("aria-hidden", "true");
+  lightboxImg.src = "";
+  lightboxImg.alt = "";
+  lightboxCaption.textContent = "";
+  document.body.style.overflow = "";
+
+  if (ultimoElementoFocado) {
+    ultimoElementoFocado.focus();
+  }
 }
 
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') fecharLightbox();
-});
+function iniciarLightbox() {
+  if (!itensGaleria.length || !elementoExiste(lightbox, lightboxClose)) return;
 
-// ---- Delegar cliques [data-section] ----
-document.addEventListener('click', (e) => {
-  const target = e.target.closest('[data-section]');
-  if (!target) return;
-  e.preventDefault();
-  const section = target.dataset.section;
-  if (section) showSection(section);
-});
-
-// ---- Hamburger ----
-hamburger.addEventListener('click', () => {
-  navMenu.classList.toggle('active');
-  hamburger.classList.toggle('open');
-});
-
-// ---- Navbar sombra ao rolar ----
-window.addEventListener('scroll', () => {
-  navbar.style.background = window.scrollY > 30
-    ? 'rgba(5,5,5,0.99)'
-    : 'rgba(10,10,10,0.97)';
-});
-
-// =============================================
-//  TOAST — notificação personalizada
-// =============================================
-function showToast(type) {
-  const existing = document.getElementById('trocoleo-toast');
-  if (existing) existing.remove();
-
-  const isSuccess = type === 'success';
-  const toast = document.createElement('div');
-  toast.id = 'trocoleo-toast';
-
-  toast.innerHTML = isSuccess ? `
-    <div class="toast-icon toast-icon-success">
-      <i class="fas fa-check-circle"></i>
-    </div>
-    <div class="toast-body">
-      <strong>Mensagem enviada com sucesso! 🎉</strong>
-      <p>Obrigado pelo contato! Em breve nossa equipe retornará via <strong>WhatsApp</strong> ou <strong>e-mail</strong>.</p>
-      <span class="toast-sub"><i class="fab fa-whatsapp"></i> (11) 9 1733 4614</span>
-    </div>
-    <button class="toast-close" onclick="this.parentElement.remove()">
-      <i class="fas fa-times"></i>
-    </button>
-  ` : `
-    <div class="toast-icon toast-icon-error">
-      <i class="fas fa-exclamation-circle"></i>
-    </div>
-    <div class="toast-body">
-      <strong>Erro ao enviar a mensagem ⚠️</strong>
-      <p>Não foi possível enviar. Entre em contato diretamente pelo <strong>WhatsApp</strong>:</p>
-      <a href="https://wa.me/5511917334614?text=Olá,%20vim%20pelo%20site%20e%20gostaria%20de%20agendar%20um%20diagnóstico!"
-         target="_blank" class="toast-whatsapp-btn">
-        <i class="fab fa-whatsapp"></i> Chamar no WhatsApp
-      </a>
-    </div>
-    <button class="toast-close" onclick="this.parentElement.remove()">
-      <i class="fas fa-times"></i>
-    </button>
-  `;
-
-  Object.assign(toast.style, {
-    position:     'fixed',
-    bottom:       '100px',
-    right:        '24px',
-    zIndex:       '99999',
-    display:      'flex',
-    alignItems:   'flex-start',
-    gap:          '14px',
-    background:   isSuccess ? '#0d1f14' : '#1f0d0d',
-    border:       `1px solid ${isSuccess ? '#2ecc71' : '#e74c3c'}`,
-    borderLeft:   `5px solid ${isSuccess ? '#2ecc71' : '#e74c3c'}`,
-    borderRadius: '12px',
-    padding:      '20px 16px 20px 20px',
-    maxWidth:     '380px',
-    width:        'calc(100vw - 48px)',
-    boxShadow:    '0 8px 32px rgba(0,0,0,0.7)',
-    fontFamily:   "'Segoe UI', Arial, sans-serif",
-    color:        '#f0f0f0',
-    animation:    'toastIn 0.4s cubic-bezier(0.34,1.56,0.64,1) forwards',
+  itensGaleria.forEach((item) => {
+    item.addEventListener("click", () => abrirLightbox(item));
   });
 
-  if (!document.getElementById('toast-keyframes')) {
-    const style = document.createElement('style');
-    style.id = 'toast-keyframes';
-    style.textContent = `
-      @keyframes toastIn {
-        from { opacity:0; transform:translateX(120px); }
-        to   { opacity:1; transform:translateX(0); }
-      }
-      @keyframes toastOut {
-        from { opacity:1; transform:translateX(0); }
-        to   { opacity:0; transform:translateX(120px); }
-      }
-      #trocoleo-toast .toast-icon { font-size:2rem; flex-shrink:0; margin-top:2px; }
-      #trocoleo-toast .toast-icon-success { color:#2ecc71; }
-      #trocoleo-toast .toast-icon-error   { color:#e74c3c; }
-      #trocoleo-toast .toast-body { flex:1; }
-      #trocoleo-toast .toast-body strong {
-        display:block; font-size:1rem; margin-bottom:6px; color:#fff;
-      }
-      #trocoleo-toast .toast-body p {
-        font-size:0.88rem; color:#bbb; line-height:1.5; margin:0 0 8px;
-      }
-      #trocoleo-toast .toast-sub {
-        font-size:0.88rem; color:#2ecc71; font-weight:700;
-      }
-      #trocoleo-toast .toast-sub i { margin-right:4px; }
-      #trocoleo-toast .toast-whatsapp-btn {
-        display:inline-flex; align-items:center; gap:8px;
-        background:#25d366; color:#000; font-weight:800;
-        padding:8px 16px; border-radius:8px; text-decoration:none;
-        font-size:0.9rem; margin-top:4px; transition:background 0.2s;
-      }
-      #trocoleo-toast .toast-whatsapp-btn:hover { background:#20b858; }
-      #trocoleo-toast .toast-close {
-        background:none; border:none; color:#666; cursor:pointer;
-        font-size:1rem; padding:0 0 0 4px; flex-shrink:0; margin-top:2px;
-        transition:color 0.2s;
-      }
-      #trocoleo-toast .toast-close:hover { color:#fff; }
-    `;
-    document.head.appendChild(style);
-  }
+  lightboxClose.addEventListener("click", fecharLightbox);
 
-  document.body.appendChild(toast);
-
-  setTimeout(() => {
-    if (toast.parentElement) {
-      toast.style.animation = 'toastOut 0.35s ease forwards';
-      setTimeout(() => toast.remove(), 350);
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) {
+      fecharLightbox();
     }
-  }, 7000);
+  });
 }
 
-// =============================================
-//  FORMULÁRIO — envio AJAX
-// =============================================
-const form = document.getElementById('contactForm');
+// =============================
+// Toast
+// =============================
+function removerToast(toast) {
+  if (!toast) return;
+  toast.classList.add("toast-saindo");
+  setTimeout(() => toast.remove(), 300);
+}
 
-if (form) {
-  form.addEventListener('submit', async (e) => {
+function criarToastHTML(tipo) {
+  if (tipo === "success") {
+    return `
+      <div class="toast toast-success" role="status">
+        <div class="toast-icon"><i class="fas fa-check-circle"></i></div>
+        <div class="toast-body">
+          <strong>Mensagem enviada com sucesso</strong>
+          <p>Obrigado pelo contato. Em breve a equipe retornará por WhatsApp ou e-mail.</p>
+          <span class="toast-sub"><i class="fab fa-whatsapp"></i> (11) 9 1733-4614</span>
+        </div>
+        <button class="toast-close" type="button" aria-label="Fechar aviso">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="toast toast-error" role="alert">
+      <div class="toast-icon"><i class="fas fa-exclamation-circle"></i></div>
+      <div class="toast-body">
+        <strong>Erro ao enviar a mensagem</strong>
+        <p>Não foi possível concluir o envio. Você pode chamar diretamente no WhatsApp.</p>
+        <a
+          href="https://wa.me/5511917334614?text=Olá,%20vim%20pelo%20site%20e%20gostaria%20de%20agendar%20um%20diagnóstico!"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="toast-whatsapp-btn"
+        >
+          <i class="fab fa-whatsapp"></i> Chamar no WhatsApp
+        </a>
+      </div>
+      <button class="toast-close" type="button" aria-label="Fechar aviso">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  `;
+}
+
+function mostrarToast(tipo) {
+  if (!toastContainer) return;
+
+  toastContainer.innerHTML = criarToastHTML(tipo);
+  const toast = toastContainer.querySelector(".toast");
+  const btnFechar = toast?.querySelector(".toast-close");
+
+  if (btnFechar && toast) {
+    btnFechar.addEventListener("click", () => removerToast(toast));
+  }
+
+  if (toast) {
+    setTimeout(() => removerToast(toast), 7000);
+  }
+}
+
+// =============================
+// Formulário
+// =============================
+function validarFormulario(formulario) {
+  const camposObrigatorios = formulario.querySelectorAll("[required]");
+  let valido = true;
+
+  camposObrigatorios.forEach((campo) => {
+    if (!campo.checkValidity()) {
+      valido = false;
+      campo.reportValidity();
+    }
+  });
+
+  return valido;
+}
+
+function iniciarFormulario() {
+  if (!form) return;
+
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
+
+    if (!validarFormulario(form)) return;
+
     const btn = form.querySelector('button[type="submit"]');
-    const originalHTML = btn.innerHTML;
+    if (!btn) return;
+
+    const htmlOriginal = btn.innerHTML;
     btn.disabled = true;
     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
 
     try {
-      const res = await fetch(form.action, {
-        method:  'POST',
-        body:    new FormData(form),
-        headers: { 'Accept': 'application/json' }
+      const resposta = await fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: {
+          Accept: "application/json"
+        }
       });
-      if (res.ok) {
+
+      if (resposta.ok) {
         form.reset();
-        showToast('success');
+        mostrarToast("success");
       } else {
-        showToast('error');
+        mostrarToast("error");
       }
-    } catch {
-      showToast('error');
+    } catch (erro) {
+      mostrarToast("error");
     } finally {
       btn.disabled = false;
-      btn.innerHTML = originalHTML;
+      btn.innerHTML = htmlOriginal;
     }
   });
 }
 
-// ---- Animação de entrada nos cards ----
-const animObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.style.opacity   = '1';
-      entry.target.style.transform = 'translateY(0)';
-    }
-  });
-}, { threshold: 0.1 });
+// =============================
+// Reveal on scroll
+// =============================
+function iniciarReveal() {
+  if (prefersReducedMotion) return;
 
-document.querySelectorAll(
-  '.mvv-card, .servico-card, .contato-item, .video-wrapper, .aviso-box, .galeria-item, .depoimento-card'
-).forEach(el => {
-  el.style.opacity   = '0';
-  el.style.transform = 'translateY(24px)';
-  el.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
-  animObserver.observe(el);
-});
-// =============================================
-//  LGPD — COOKIES + POLÍTICA DE PRIVACIDADE
-// =============================================
+  const elementos = document.querySelectorAll(".reveal");
+  if (!elementos.length) return;
 
-const cookieBanner    = document.getElementById('cookie-banner');
-const btnAceitar      = document.getElementById('cookieAceitar');
-const btnRejeitar     = document.getElementById('cookieRejeitar');
-const modalPriv       = document.getElementById('modal-privacidade');
-const btnOpenPriv     = document.getElementById('openPrivacidade');
-const btnFecharModal  = document.getElementById('fecharModal');
-const btnFecharModalB = document.getElementById('fecharModalBtn');
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          obs.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12 }
+  );
 
-// Verifica se já deu consentimento
+  elementos.forEach((el) => observer.observe(el));
+}
+
+// =============================
+// Cookies
+// =============================
 function verificarCookie() {
-  const consent = localStorage.getItem('trocoleo_cookie_consent');
-  if (consent === 'aceito' || consent === 'rejeitado') {
-    cookieBanner.classList.add('esconder');
+  if (!cookieBanner) return;
+
+  const consentimento = localStorage.getItem("trocoleo_cookie_consent");
+
+  if (consentimento === "aceito" || consentimento === "rejeitado") {
+    cookieBanner.classList.add("esconder");
+    cookieBanner.setAttribute("aria-hidden", "true");
   }
 }
 
-// Aceitar cookies
-btnAceitar.addEventListener('click', () => {
-  localStorage.setItem('trocoleo_cookie_consent', 'aceito');
-  localStorage.setItem('trocoleo_cookie_date', new Date().toISOString());
-  cookieBanner.classList.add('esconder');
-  // Se quiser ativar Google Analytics apenas após aceitar, chame aqui
-});
+function iniciarCookies() {
+  verificarCookie();
 
-// Rejeitar cookies
-btnRejeitar.addEventListener('click', () => {
-  localStorage.setItem('trocoleo_cookie_consent', 'rejeitado');
-  cookieBanner.classList.add('esconder');
-});
+  if (btnAceitar) {
+    btnAceitar.addEventListener("click", () => {
+      localStorage.setItem("trocoleo_cookie_consent", "aceito");
+      localStorage.setItem("trocoleo_cookie_date", new Date().toISOString());
+      cookieBanner?.classList.add("esconder");
+      cookieBanner?.setAttribute("aria-hidden", "true");
+    });
+  }
 
-// Abrir modal de privacidade
-btnOpenPriv.addEventListener('click', (e) => {
-  e.preventDefault();
-  modalPriv.classList.add('ativo');
-  document.body.style.overflow = 'hidden';
-});
-
-// Fechar modal
-function fecharModalPriv() {
-  modalPriv.classList.remove('ativo');
-  document.body.style.overflow = '';
+  if (btnRejeitar) {
+    btnRejeitar.addEventListener("click", () => {
+      localStorage.setItem("trocoleo_cookie_consent", "rejeitado");
+      localStorage.setItem("trocoleo_cookie_date", new Date().toISOString());
+      cookieBanner?.classList.add("esconder");
+      cookieBanner?.setAttribute("aria-hidden", "true");
+    });
+  }
 }
-btnFecharModal.addEventListener('click', fecharModalPriv);
-btnFecharModalB.addEventListener('click', fecharModalPriv);
-modalPriv.addEventListener('click', (e) => {
-  if (e.target === modalPriv) fecharModalPriv();
-});
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') fecharModalPriv();
-});
 
-// Iniciar verificação
-verificarCookie();
+// =============================
+// Modal de privacidade
+// =============================
+function obterElementosFocaveis(container) {
+  if (!container) return [];
+  return [
+    ...container.querySelectorAll(
+      'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+    )
+  ];
+}
+
+function manterFocoNoModal(e) {
+  if (!modalPriv?.classList.contains("ativo") || e.key !== "Tab") return;
+
+  const focaveis = obterElementosFocaveis(modalBox);
+  if (!focaveis.length) return;
+
+  const primeiro = focaveis[0];
+  const ultimo = focaveis[focaveis.length - 1];
+
+  if (e.shiftKey && document.activeElement === primeiro) {
+    e.preventDefault();
+    ultimo.focus();
+  } else if (!e.shiftKey && document.activeElement === ultimo) {
+    e.preventDefault();
+    primeiro.focus();
+  }
+}
+
+function abrirModalPrivacidade() {
+  if (!elementoExiste(modalPriv, modalBox)) return;
+
+  ultimoElementoFocado = document.activeElement;
+  modalPriv.classList.add("ativo");
+  modalPriv.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+
+  const focaveis = obterElementosFocaveis(modalBox);
+  if (focaveis.length) {
+    focaveis[0].focus();
+  } else {
+    modalBox.focus();
+  }
+}
+
+function fecharModalPriv() {
+  if (!modalPriv) return;
+
+  modalPriv.classList.remove("ativo");
+  modalPriv.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+
+  if (ultimoElementoFocado) {
+    ultimoElementoFocado.focus();
+  }
+}
+
+function iniciarModalPrivacidade() {
+  if (btnOpenPriv) {
+    btnOpenPriv.addEventListener("click", (e) => {
+      e.preventDefault();
+      abrirModalPrivacidade();
+    });
+  }
+
+  if (btnFecharModal) {
+    btnFecharModal.addEventListener("click", fecharModalPriv);
+  }
+
+  if (btnFecharModalB) {
+    btnFecharModalB.addEventListener("click", fecharModalPriv);
+  }
+
+  if (modalPriv) {
+    modalPriv.addEventListener("click", (e) => {
+      if (e.target === modalPriv) {
+        fecharModalPriv();
+      }
+    });
+  }
+}
+
+// =============================
+// Teclado global
+// =============================
+function iniciarEventosTeclado() {
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      if (lightbox?.classList.contains("ativo")) {
+        fecharLightbox();
+        return;
+      }
+
+      if (modalPriv?.classList.contains("ativo")) {
+        fecharModalPriv();
+        return;
+      }
+
+      if (navMenu?.classList.contains("active")) {
+        fecharMenuMobile();
+      }
+    }
+
+    manterFocoNoModal(e);
+  });
+}
+
+// =============================
+// Inicialização
+// =============================
+function init() {
+  iniciarNavegacao();
+  iniciarNavbar();
+  iniciarMenuMobile();
+  iniciarFallbackImagens();
+  iniciarLightbox();
+  iniciarFormulario();
+  iniciarReveal();
+  iniciarCookies();
+  iniciarModalPrivacidade();
+  iniciarEventosTeclado();
+}
+
+document.addEventListener("DOMContentLoaded", init);

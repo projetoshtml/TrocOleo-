@@ -399,6 +399,9 @@ function verificarCookie() {
   if (consentimento === "aceito" || consentimento === "rejeitado") {
     cookieBanner.classList.add("esconder");
     cookieBanner.setAttribute("aria-hidden", "true");
+  } else {
+    cookieBanner.classList.remove("esconder");
+    cookieBanner.setAttribute("aria-hidden", "false");
   }
 }
 

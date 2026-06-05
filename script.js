@@ -256,40 +256,40 @@ function removerToast(toast) {
 function criarToastHTML(tipo) {
   if (tipo === "success") {
     return `
-      <div class="toast toast-success" role="status">
-        <div class="toast-icon"><i class="fas fa-check-circle"></i></div>
-        <div class="toast-body">
-          <strong>Mensagem enviada com sucesso</strong>
-          <p>Obrigado pelo contato. Em breve a equipe retornará por WhatsApp ou e-mail.</p>
-          <span class="toast-sub"><i class="fab fa-whatsapp"></i> (11) 9 1733-4614</span>
-        </div>
-        <button class="toast-close" type="button" aria-label="Fechar aviso">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-    `;
+  <div class="toast toast-success" role="status">
+    <div class="toast-icon"><i class="fas fa-check-circle"></i></div>
+    <div class="toast-body">
+      <strong>Orçamento enviado com sucesso</strong>
+      <p>Recebemos sua solicitação. Em breve a equipe retornará pelo WhatsApp ou outro contato informado.</p>
+      <span class="toast-sub"><i class="fab fa-whatsapp"></i> (11) 9 1733-4614</span>
+    </div>
+    <button class="toast-close" type="button" aria-label="Fechar aviso">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+`;
   }
 
   return `
-    <div class="toast toast-error" role="alert">
-      <div class="toast-icon"><i class="fas fa-exclamation-circle"></i></div>
-      <div class="toast-body">
-        <strong>Erro ao enviar a mensagem</strong>
-        <p>Não foi possível concluir o envio. Você pode chamar diretamente no WhatsApp.</p>
-        <a
-          href="https://wa.me/5511917334614?text=Olá,%20vim%20pelo%20site%20e%20gostaria%20de%20agendar%20um%20diagnóstico!"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="toast-whatsapp-btn"
-        >
-          <i class="fab fa-whatsapp"></i> Chamar no WhatsApp
-        </a>
-      </div>
-      <button class="toast-close" type="button" aria-label="Fechar aviso">
-        <i class="fas fa-times"></i>
-      </button>
+  <div class="toast toast-error" role="alert">
+    <div class="toast-icon"><i class="fas fa-exclamation-circle"></i></div>
+    <div class="toast-body">
+      <strong>Erro ao enviar o orçamento</strong>
+      <p>Não foi possível concluir o envio agora. Você pode solicitar diretamente pelo WhatsApp.</p>
+      <a
+        href="https://wa.me/5511917334614?text=Olá,%20vim%20pelo%20site%20e%20quero%20solicitar%20um%20orçamento!"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="toast-whatsapp-btn"
+      >
+        <i class="fab fa-whatsapp"></i> Chamar no WhatsApp
+      </a>
     </div>
-  `;
+    <button class="toast-close" type="button" aria-label="Fechar aviso">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+`;
 }
 
 function mostrarToast(tipo) {

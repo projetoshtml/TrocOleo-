@@ -721,53 +721,92 @@
           </div>
 
           <div class="contato-form-wrapper reveal">
-            <form
-              action="https://formspree.io/f/mwvygndv"
-              method="POST"
-              id="contactForm"
-              class="contato-form"
-              novalidate
-            >
-              <div class="form-group">
-                <label for="nome">Nome</label>
-                <input type="text" id="nome" name="nome" placeholder="Seu nome" required />
-              </div>
+  <div class="orcamento-topo">
+    <h3>Solicite seu <span>Orçamento</span></h3>
+    <p>Preencha os dados abaixo e retornaremos com mais rapidez pelo WhatsApp.</p>
+  </div>
 
-              <div class="form-group">
-                <label for="email">E-mail</label>
-                <input type="email" id="email" name="email" placeholder="Seu e-mail" required />
-              </div>
+  <form
+    action="https://formspree.io/f/mwvygndv"
+    method="POST"
+    id="contactForm"
+    class="contato-form"
+    novalidate
+  >
+    <input type="hidden" name="_subject" value="Novo pedido de orçamento - Trocóleo" />
 
-              <div class="form-group">
-                <label for="telefone">Telefone / WhatsApp</label>
-                <input type="tel" id="telefone" name="telefone" placeholder="Seu telefone / WhatsApp" />
-              </div>
+    <div class="form-group">
+      <label for="nome">Nome <span>*</span></label>
+      <input
+        type="text"
+        id="nome"
+        name="nome"
+        placeholder="Seu nome completo"
+        required
+      />
+    </div>
 
-              <div class="form-group">
-                <label for="mensagem">Mensagem</label>
-                <textarea
-                  id="mensagem"
-                  name="mensagem"
-                  rows="5"
-                  placeholder="Descreva o serviço desejado ou sua dúvida..."
-                  required
-                ></textarea>
-              </div>
+    <div class="form-group">
+      <label for="whatsapp">WhatsApp <span>*</span></label>
+      <input
+        type="tel"
+        id="whatsapp"
+        name="whatsapp"
+        placeholder="(11) 9 0000-0000"
+        required
+      />
+    </div>
 
-              <label class="checkbox-consentimento">
-                <input type="checkbox" id="consentimento" required />
-                <span>
-                  Concordo em enviar meus dados para contato e atendimento, conforme a política de privacidade.
-                </span>
-              </label>
+    <div class="form-group">
+      <label for="carro">Carro (modelo e ano) <span>*</span></label>
+      <input
+        type="text"
+        id="carro"
+        name="carro"
+        placeholder="Ex: Gol 2018"
+        required
+      />
+    </div>
 
-              <button type="submit" class="btn-primary btn-form">
-                <i class="fas fa-paper-plane"></i> Enviar mensagem
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
+    <div class="form-group">
+      <label for="servico">Serviço desejado <span>*</span></label>
+      <select id="servico" name="servico" required>
+        <option value="">Selecione o serviço</option>
+        <option value="Troca de óleo do motor">Troca de óleo do motor</option>
+        <option value="Troca de óleo do câmbio manual">Troca de óleo do câmbio manual</option>
+        <option value="Troca de filtros">Troca de filtros</option>
+        <option value="Sistema de arrefecimento">Sistema de arrefecimento</option>
+        <option value="Diagnóstico automotivo">Diagnóstico automotivo</option>
+        <option value="Manutenção preventiva">Manutenção preventiva</option>
+        <option value="Higienização automotiva">Higienização automotiva</option>
+        <option value="Restauração de faróis">Restauração de faróis</option>
+        <option value="Lavagem interna e externa">Lavagem interna e externa</option>
+        <option value="Outro">Outro</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="mensagem">Mensagem</label>
+      <textarea
+        id="mensagem"
+        name="mensagem"
+        rows="5"
+        placeholder="Descreva sua necessidade (opcional)"
+      ></textarea>
+    </div>
+
+    <label class="checkbox-consentimento">
+      <input type="checkbox" id="consentimento" required />
+      <span>
+        Concordo em enviar meus dados para contato e orçamento, conforme a política de privacidade.
+      </span>
+    </label>
+
+    <button type="submit" class="btn-primary btn-form">
+      <i class="fas fa-file-invoice-dollar"></i> Solicitar orçamento
+    </button>
+  </form>
+</div>
     </section>
   </main>
 
